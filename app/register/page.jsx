@@ -8,7 +8,7 @@ export default function Register() {
   const [password, setPassword] = useState('');
   const registerUser = async (e) => {
     e.preventDefault();
-    fetch('registration-form-test-next-3iaq742kl-jonah95.vercel.app/api/register', {
+    fetch('/api/register', {
       method:'POST',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify({email, password})})
@@ -30,7 +30,7 @@ export default function Register() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" onSubmit={registerUser}>
+          <form className="space-y-6" onSubmit={registerUser}>
             <div>
               <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                 Email address
