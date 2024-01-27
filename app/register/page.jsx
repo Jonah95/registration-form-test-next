@@ -8,7 +8,7 @@ export default function Register() {
   const [password, setPassword] = useState('');
   const registerUser = async (e) => {
     e.preventDefault();
-    fetch('http://localhost:3000/api/register', {
+    fetch('registration-form-test-next-3iaq742kl-jonah95.vercel.app/api/register', {
       method:'POST',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify({email, password})})
