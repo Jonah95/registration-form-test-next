@@ -1,97 +1,77 @@
-'use client'
 
-import { useState } from "react"
+import React from 'react';
+import Link from 'next/link';
 
-
-export default function Register() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const registerUser = async (e) => {
-    e.preventDefault();
-    fetch('/api/register', {
-      method:'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({email, password})})
-  }
-
+const Page = () => {
   return (
-    <>
-      
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img
-            className="mx-auto h-10 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-            alt="Your Company"
-          />
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Register your account
-          </h2>
+    <div className=" container mx-auto px-8 items-center my-20">
+      <h1 className="text-3xl font-semibold pl-10">Hello, Annalectuals🤘</h1>
+
+      <div className="flex mt-8 items-center justify-self-end ">
+        {/* Column for the paragraph */}
+        <div className="w-3/4 pr-8 pl-10">
+        <h3 className="text-3xl font-semibold mb-5">Guidelines!!!👇</h3>
+          <p className="text-lg ">
+          Welcome to our vibrant gallery! Step into the artistic realm by clicking the button below, explore a myriad of captivating artworks and photographs. If a piece catches your eye, delve into its details to experience the artist's perspective. You can also view a larger version of the image.
+
+            Enter your name and the accompanying ID number located near the name into the designated fields, then click the button to cast your vote for your favorite artist's creation. Embark on this visual journey with us, and thank you for being an integral part of our creative community!
+          </p>
+          <Link href="/register"><button className="px-5 my-5 bg-fuchsia-700 text-white font-semibold rounded-md py-1.5 hover:bg-fuchsia-950">Enter Gallery</button></Link>
         </div>
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" onSubmit={registerUser}>
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                Email address
-              </label>
-              <div className="mt-2">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-            <div>
-              <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                  Password
-                </label>
-                <div className="text-sm">
-                  <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                    Forgot password?
-                  </a>
-                </div>
-              </div>
-              <div className="mt-2">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="current-password"
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-            <div>
-              <button
-                type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Register
-              </button>
-            </div>
-          </form>
-
-          <p className="mt-10 text-center text-sm text-gray-500">
-            Not a member?{' '}
-            <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-              Start a 14 day free trial
-            </a>
-          </p>
+        {/* Column for the image */}
+        <div className="w-1/3 justify-self-end">
+          <img src="./triranga-competition-logo.png" alt="Gallery" className="ml-20 w-90 h-auto" />
         </div>
       </div>
-    </>
-  )
-}
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-1 mt-8 ">
+            {/* Image 1 */}
+            <div className="relative">
+              <div>
+                <img
+                  src="./crp-img/dance-crp.png"
+                  alt="Image 1"
+                  className="w-full rounded-md md:w-auto mx-auto"
+                />
+              </div>
+            </div>
+
+            {/* Image 2 */}
+            <div className="relative">
+              <div>
+                <img
+                  src="./crp-img/flower-crp.png"
+                  alt="Image 1"
+                  className="w-full rounded-md md:w-auto mx-auto"
+                />
+              </div>
+            </div>
+
+        {/* Image 3 */}
+        <div className="relative">
+          <div>
+            <img
+              src="./crp-img/flowers-crp.png"
+              alt="Image 1"
+              className="w-full rounded-md md:w-auto mx-auto"
+            />
+          </div>
+        </div>
+
+        {/* Image 4 */}
+        <div className="relative">
+          <div>
+            <img
+              src="./crp-img/girl-crp.png"
+              alt="Image 1"
+              className="w-full rounded-md md:w-auto mx-auto"
+            />
+          </div>
+        </div>
+        </div>
+    </div>
+  );
+};
+
+export default Page;
