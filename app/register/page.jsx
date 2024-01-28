@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import ImageData from "./imageData";
+import Link from 'next/link';
 
 
 export default function Register() {
@@ -29,11 +30,12 @@ export default function Register() {
 
     return (
       <div className="container mx-auto my-8 px-4">
-        <h1 className="text-3xl font-semibold mb-4">Hello, Annalectuals🤘</h1>
+        <h1 className="text-3xl font-semibold  text-slate-800">Hello, Annalectuals🤘</h1>
 
+
+                  <Link href="/"><button className="px-5 my-5 bg-fuchsia-700 text-white font-semibold rounded-md py-1.5 hover:bg-fuchsia-950">Go back</button></Link>
         
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {ImageData.map((image) => (
             <div key={image.id} className="relative">
               <div className="bg-white rounded-md shadow-md overflow-hidden">
@@ -154,6 +156,3 @@ export default function Register() {
       </div>
     );
   }
-        
-
-      
