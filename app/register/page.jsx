@@ -17,6 +17,9 @@ export default function Register() {
       method:'POST',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify({email, password})})
+      window.alert("Vote successfully registered!");
+      setEmail('');
+      setPassword('');
   }
 
   const openModal = (image) => {
