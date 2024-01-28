@@ -1,11 +1,16 @@
 'use client'
 
 import { useState } from "react"
+import { Link } from "react-router-dom";
+import ImageData from "./imageData";
 
 
 export default function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+  
   const registerUser = async (e) => {
     e.preventDefault();
     fetch('/api/register', {
@@ -14,27 +19,96 @@ export default function Register() {
       body: JSON.stringify({email, password})})
   }
 
-  return (
-    <>
-      
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img
-            className="mx-auto h-10 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-            alt="Your Company"
-          />
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Register your account
-          </h2>
-        </div>
+  const openModal = (image) => {
+    setSelectedImage(image);
+  };
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" onSubmit={registerUser}>
+  const closeModal = () => {
+    setSelectedImage(null);
+  };
+
+
+    return (
+      <div className="container mx-auto my-8 px-4">
+        <h1 className="text-3xl font-semibold mb-4">Hello, Annalectuals🤘</h1>
+
+        
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {ImageData.map((image) => (
+            <div key={image.id} className="relative">
+              <div className="bg-white rounded-md shadow-md overflow-hidden">
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  className="w-full h-40 object-cover mb-2"
+                />
+                <div className="p-4">
+                  <p className="text-xl font-semibold">{image.title}</p>
+                  <p className="text-gray-600">{image.artist}</p>
+                  <button
+                    type="button"
+                    onClick={() => openModal(image)}
+                    className="w-full mt-2 bg-indigo-600 text-white font-semibold rounded-md py-1.5 hover:bg-indigo-500"
+                  >
+                    Details
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+  
+        {selectedImage && (
+          <div className="fixed inset-0 flex items-center justify-center z-50">
+            <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
+            <div className="bg-white w-96 p-6 rounded-md shadow-lg z-50 overflow-y-auto max-h-screen">
+              <div className="flex justify-between">
+                <div>
+                  <h3 className="text-xl font-semibold mb-4">
+                     {selectedImage.title}
+                  </h3>
+                </div>
+                <div className="">
+                  <button
+                    className="text-gray-500 hover:text-gray-700"
+                    onClick={closeModal}
+                  >
+                    <svg
+                      className="h-6 w-6"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </div>
+    
+                
+              </div>
+              {/* Image inside the modal */}
+              <img
+                src={selectedImage.src}
+                alt={selectedImage.alt}
+                className="w-full rounded-md mb-4"
+              />
+  
+              {/* Title and artist name in the modal */}
+              <div className="mb-2">
+                <p className="text-gray-600 font-bold text-2xl">By {selectedImage.artist} - ID {selectedImage.id}</p>
+              </div>
+  
+              {/* Details content for the image */}
+              <p>{selectedImage.details}</p>
+              <a className="text-blue-600 font-medium inline-block mt-3" href={selectedImage.rawl} target="_blank">Click for full image</a>
+  
+              
+              <form className="space-y-3" onSubmit={registerUser}>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                Email address
-              </label>
               <div className="mt-2">
                 <input
                   id="email"
@@ -43,6 +117,7 @@ export default function Register() {
                   autoComplete="email"
                   required
                   value={email}
+                  placeholder="Type in your name"
                   onChange={(e) => setEmail(e.target.value)}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -50,24 +125,15 @@ export default function Register() {
             </div>
 
             <div>
-              <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                  Password
-                </label>
-                <div className="text-sm">
-                  <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                    Forgot password?
-                  </a>
-                </div>
-              </div>
               <div className="mt-2">
                 <input
                   id="password"
                   name="password"
-                  type="password"
+                  type="text"
                   autoComplete="current-password"
                   required
                   value={password}
+                  placeholder="Type in above ID number"
                   onChange={(e) => setPassword(e.target.value)}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -79,19 +145,16 @@ export default function Register() {
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Register
+                Vote❤️
               </button>
             </div>
           </form>
-
-          <p className="mt-10 text-center text-sm text-gray-500">
-            Not a member?{' '}
-            <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-              Start a 14 day free trial
-            </a>
-          </p>
-        </div>
+            </div>
+          </div>
+        )}
       </div>
-    </>
-  )
-}
+    );
+  }
+        
+
+      
