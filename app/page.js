@@ -21,7 +21,7 @@ const Page = () => {
 
         {/* Column for the image */}
         <div className="w-1/3 justify-self-end">
-          <img src="./triranga-competition-logo.png" alt="Gallery" className="ml-20 w-90 h-auto" />
+          <img src="./web-logo.png" alt="Gallery" className="w-90 h-auto" />
         </div>
       </div>
 
